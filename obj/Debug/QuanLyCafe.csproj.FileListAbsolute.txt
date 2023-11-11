@@ -1,0 +1,13 @@
+C:\HocTap\WinFrom(C#)\QuanLyCafe\bin\Debug\QuanLyCafe.exe.config
+C:\HocTap\WinFrom(C#)\QuanLyCafe\bin\Debug\QuanLyCafe.exe
+C:\HocTap\WinFrom(C#)\QuanLyCafe\bin\Debug\QuanLyCafe.pdb
+C:\HocTap\WinFrom(C#)\QuanLyCafe\obj\Debug\QuanLyCafe.csproj.AssemblyReference.cache
+C:\HocTap\WinFrom(C#)\QuanLyCafe\obj\Debug\QuanLyCafe.Login.resources
+C:\HocTap\WinFrom(C#)\QuanLyCafe\obj\Debug\QuanLyCafe.Properties.Resources.resources
+C:\HocTap\WinFrom(C#)\QuanLyCafe\obj\Debug\QuanLyCafe.csproj.GenerateResource.cache
+C:\HocTap\WinFrom(C#)\QuanLyCafe\obj\Debug\QuanLyCafe.csproj.CoreCompileInputs.cache
+C:\HocTap\WinFrom(C#)\QuanLyCafe\obj\Debug\QuanLyCafe.exe
+C:\HocTap\WinFrom(C#)\QuanLyCafe\obj\Debug\QuanLyCafe.pdb
+C:\HocTap\WinFrom(C#)\QuanLyCafe\obj\Debug\QuanLyCafe.TableManager.resources
+C:\HocTap\WinFrom(C#)\QuanLyCafe\obj\Debug\QuanLyCafe.AccountProfile.resources
+C:\HocTap\WinFrom(C#)\QuanLyCafe\obj\Debug\QuanLyCafe.Admin.resources
