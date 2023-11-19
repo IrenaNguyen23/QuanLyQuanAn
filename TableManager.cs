@@ -32,6 +32,7 @@ namespace QuanLyCafe
             LoadTable();
             LoadCategory();
             LoadComboxTable(cbSwtich);
+            LoadComboxTableGroup(cbGroupTable);
         }
         #region Method
 
@@ -101,7 +102,11 @@ namespace QuanLyCafe
             cb.DataSource = TableDAO.Instance.LoadTableList();
             cb.DisplayMember = "Name";
         }
-
+        void LoadComboxTableGroup(ComboBox cb)
+        {
+            cb.DataSource = TableDAO.Instance.LoadTableList();
+            cb.DisplayMember = "Name";
+        }
         #endregion
 
         #region Event
@@ -248,15 +253,22 @@ namespace QuanLyCafe
             }
             double finalTotalPrice = totalPrice - (totalPrice / 100) * discount;
 
-            if (idBill != -1)
+            if(totalPrice != 0)
             {
-                if (MessageBox.Show(string.Format("Bạn có chắc thanh toán hóa đơn cho {0}\nTổng tiền - (Tổng tiền / 100) x Giảm giá\n=> {1} - ({1} / 100) x {2} = {3}", table.Name, totalPrice, discount, finalTotalPrice), "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                if (idBill != -1)
                 {
-                    BillDAO.Instance.CheckOut(idBill, discount, (float)finalTotalPrice);
-                    ShowBill(table.ID);
+                    if (MessageBox.Show(string.Format("Bạn có chắc thanh toán hóa đơn cho {0}\nTổng tiền - (Tổng tiền / 100) x Giảm giá\n=> {1} - ({1} / 100) x {2} = {3}", table.Name, totalPrice, discount, finalTotalPrice), "Thông báo", MessageBoxButtons.OKCancel) == System.Windows.Forms.DialogResult.OK)
+                    {
+                        BillDAO.Instance.CheckOut(idBill, discount, (float)finalTotalPrice);
+                        ShowBill(table.ID);
 
-                    LoadTable();
+                        LoadTable();
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Bàn trống không có gì để thanh toán");
             }
         }
 
@@ -286,5 +298,19 @@ namespace QuanLyCafe
             btnCheckOut_Click(this, new EventArgs());
         }
         #endregion
+
+        private void btnGroupTable_Click(object sender, EventArgs e)
+        {
+            int id1 = (lsvBill.Tag as Table).ID;
+
+            int id2 = (cbGroupTable.SelectedItem as Table).ID;
+            if (MessageBox.Show(string.Format("Bạn có muốn gộp {0} qua {1}", (lsvBill.Tag as Table).Name, (cbGroupTable.SelectedItem as Table).Name), "Thông báo", (MessageBoxButtons.OKCancel)) == System.Windows.Forms.DialogResult.OK)
+            {
+
+                TableDAO.Instance.MergeTable(id1, id2);
+
+                LoadTable();
+            }
+        }
     }
 }

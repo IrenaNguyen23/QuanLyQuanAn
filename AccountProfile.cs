@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -36,11 +37,13 @@ namespace QuanLyCafe
 
         void UpdateAccountInfo()
         {
+            
             string displayName = txbDisplayName.Text;
             string password = txbPassWord.Text;
             string newpass = txbNewPass.Text;
             string reenterPass = txbReEnterPass.Text;
             string userName = txbUserName.Text;
+
 
             if (!newpass.Equals(reenterPass))
             {

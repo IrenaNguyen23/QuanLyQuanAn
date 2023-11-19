@@ -8,15 +8,10 @@ CREATE TABLE TableFood
 (
 	id INT IDENTITY PRIMARY KEY,
 	name NVARCHAR(100) NOT NULL  DEFAULT N'Chưa đặt tên',
-	status NVARCHAR(100) NOT NULL,
+	status NVARCHAR(100) NOT NULL DEFAULT N'Trống',
 )
-ALTER TABLE TableFood
-ALTER COLUMN status NVARCHAR(100) NOT NULL
-
-ALTER TABLE TableFood
-ADD CONSTRAINT DF_TableFood_status DEFAULT N'Trống' FOR status
-
 GO
+
 
 CREATE TABLE Account
 (
@@ -56,6 +51,7 @@ CREATE TABLE Bill
 
 	FOREIGN KEY (idTable) REFERENCES dbo.TableFood(id)
 )
+GO
 
 CREATE TABLE BillInfor
 (
@@ -67,6 +63,7 @@ CREATE TABLE BillInfor
 	FOREIGN KEY (idBill) REFERENCES dbo.Bill(id),
 	FOREIGN KEY (idFood) REFERENCES dbo.Food(id)
 )
+
 GO
 
 CREATE PROC USP_GetAccountByUserName
@@ -75,10 +72,6 @@ AS
 BEGIN
 	SELECT * FROM Account Where UserName=@userName
 END
-GO
-
-EXEC USP_GetAccountByUserName @userName = N'staff'
-
 GO
 
 CREATE PROC USP_Login
@@ -90,10 +83,6 @@ END
 
 GO
 
-Exec USP_Login @userName = N'staff', @passWord = N'1'
-
-GO
-
 
 DECLARE @i INT = 1
 WHILE @i <= 20
@@ -102,14 +91,12 @@ BEGIN
 	SET @i = @i + 1
 END
 
-SELECT * from TableFood
 GO
+
 CREATE PROC USP_GetTableList
 AS SELECT * FROM TableFood
 GO
-EXEC USP_GetTableList
 
-Update TableFood set status = N'Có người' where id = 5
 
 GO
 INSERT FoodCategory (name) VALUES (N'Hải sản')
@@ -148,14 +135,6 @@ SELECT * FROM BillInfor
 
 GO
 
-select * from bill where idTable=1 and status=0
-select * from BillInfor where idBill = 1
-select * from TableFood
-select f.name, bi.count, f.price, f.price*bi.count as total from Bill as b, BillInfor as bi, Food as f 
-where bi.idBill = b.id and bi.idFood = f.id and b.idTable = 1
-
-
-Go
 CREATE proc USP_InsertBill
 @idTable Int
 AS
@@ -164,6 +143,7 @@ BEGIN
 END
 
 GO
+
 Create proc USP_InsertBillInfor
 @idBill Int, @idFood int, @count int
 AS
@@ -190,9 +170,8 @@ BEGIN
 	end	
 END
 
-SELECT MAX(id) from Bill
+GO
 
-DROP PROC USP_InsertBillInfor
 
 
 --Trigger
@@ -233,7 +212,6 @@ BEGIN
 END
 GO
 
-GO
 ALTER TRIGGER UTG_UpdateBill
 ON dbo.Bill FOR UPDATE
 AS
@@ -256,7 +234,7 @@ END
 GO
 
 ----------------------------------------------------------------------------- Contineu bai 13
-ALTER PROC USP_SwitchTable
+CREATE PROC USP_SwitchTable
 @idTable1 INT, @idTable2 int
 AS BEGIN
 
@@ -339,24 +317,12 @@ AS BEGIN
 END
 GO
 
-GO
-SELECT * from TableFood
-GO
-
-DELETE FROM BillInfor
-DELETE FROM Bill
-UPDATE TableFood set status = N'Trống'
-select * from TableFood
-
 -------------------
 ALter table bill add totalPrice float
 GO
-select t.name,b.totalPrice, DateCheckIn,DateCheckOut,discount 
-from Bill as b,TableFood as t
-where DateCheckIn >='20231101' and DateCheckIn <='20231130' and b.status = 1 and t.id =b.idTable 
 
-GO
-ALter PROC USP_GetListBillByDate
+
+CREATE PROC USP_GetListBillByDate
 @checkIn Date, @checkOut date
 AS
 BEGIN
@@ -367,10 +333,6 @@ BEGIN
 END
 GO
 
-select * from Account
-Select * from Account
-update Account set Type = '0' where UserName = 'staff'
-Go
 CREATE PROC USP_UpdateAccount
 @userName NVARCHAR(100), @displayName NVARCHAR(100), @password NVARCHAR(100), @newPassword NVARCHAR(100)
 AS
@@ -390,9 +352,7 @@ BEGIN
 	end
 END
 GO
-select f.id as [ID Food], f.name as [Tên món ăn], f.price as [Giá tiền], fb.name as [Danh mục]  from food as f, FoodCategory as fb where fb.id = f.idCategory
-select * from BillInfor
-GO
+
 
 CREATE TRIGGER UTG_DeleteBillInfo
 ON BillInfor FOR DELETE
@@ -413,13 +373,7 @@ BEGIN
 		UPDATE dbo.TableFood SET status = N'Trống' WHERE id = @idTable
 END
 GO
-select * from food
-	SELECT @count = COUNT(*) FROM dbo.BillInfo AS bi, dbo.Bill AS b WHERE b.id = bi.idBill AND b.id = @idBill AND b.status = 0
-	
-	IF (@count = 0)
-		UPDATE dbo.TableFood SET status = N'Trống' WHERE id = @idTable
-END
-GO
+
 
 
 CREATE FUNCTION [dbo].[fuConvertToUnsign1] ( @strInput NVARCHAR(4000) ) RETURNS NVARCHAR(4000) AS BEGIN IF @strInput IS NULL RETURN @strInput IF @strInput = '' RETURN @strInput DECLARE @RT NVARCHAR(4000) DECLARE @SIGN_CHARS NCHAR(136) DECLARE @UNSIGN_CHARS NCHAR (136) SET @SIGN_CHARS = N'ăâđêôơưàảãạáằẳẵặắầẩẫậấèẻẽẹéềểễệế ìỉĩịíòỏõọóồổỗộốờởỡợớùủũụúừửữựứỳỷỹỵý ĂÂĐÊÔƠƯÀẢÃẠÁẰẲẴẶẮẦẨẪẬẤÈẺẼẸÉỀỂỄỆẾÌỈĨỊÍ ÒỎÕỌÓỒỔỖỘỐỜỞỠỢỚÙỦŨỤÚỪỬỮỰỨỲỶỸỴÝ' +NCHAR(272)+ NCHAR(208) SET @UNSIGN_CHARS = N'aadeoouaaaaaaaaaaaaaaaeeeeeeeeee iiiiiooooooooooooooouuuuuuuuuuyyyyy AADEOOUAAAAAAAAAAAAAAAEEEEEEEEEEIIIII OOOOOOOOOOOOOOOUUUUUUUUUUYYYYYDD' DECLARE @COUNTER int DECLARE @COUNTER1 int SET @COUNTER = 1 WHILE (@COUNTER <=LEN(@strInput)) BEGIN SET @COUNTER1 = 1 WHILE (@COUNTER1 <=LEN(@SIGN_CHARS)+1) BEGIN IF UNICODE(SUBSTRING(@SIGN_CHARS, @COUNTER1,1)) = UNICODE(SUBSTRING(@strInput,@COUNTER ,1) ) BEGIN IF @COUNTER=1 SET @strInput = SUBSTRING(@UNSIGN_CHARS, @COUNTER1,1) + SUBSTRING(@strInput, @COUNTER+1,LEN(@strInput)-1) ELSE SET @strInput = SUBSTRING(@strInput, 1, @COUNTER-1) +SUBSTRING(@UNSIGN_CHARS, @COUNTER1,1) + SUBSTRING(@strInput, @COUNTER+1,LEN(@strInput)- @COUNTER) BREAK END SET @COUNTER1 = @COUNTER1 +1 END SET @COUNTER = @COUNTER +1 END SET @strInput = replace(@strInput,' ','-') RETURN @strInput END
@@ -478,7 +432,120 @@ BEGIN
     END
 END
 
-select * from TableFood
+GO
+
+
+SELECT TOP 10 F.id, F.name, SUM(BI.count) as total_count
+FROM Food F
+JOIN BillInfor BI ON F.id = BI.idFood
+GROUP BY F.id, F.name
+ORDER BY total_count DESC;
 
 GO
 
+CREATE PROCEDURE GetTopSellingFoodsByDate
+    @StartDate DATE,
+    @EndDate DATE
+AS
+BEGIN
+    SELECT TOP 10 F.id, F.name as [Tên món ăn], SUM(BI.count) as [Tổng số lượng], SUM(BI.count * F.price) as [Tổng tiền], B.DateCheckIn as [Ngày vào], B.DateCheckOut as [Ngày ra]
+    FROM Food F
+    JOIN BillInfor BI ON F.id = BI.idFood
+    JOIN Bill B ON B.id = BI.idBill
+    WHERE B.DateCheckIn >= @StartDate AND B.DateCheckIn <= @EndDate
+    GROUP BY F.id, F.name, B.DateCheckIn, B.DateCheckOut
+    ORDER BY [Tổng số lượng] DESC;
+END;
+GO
+
+DECLARE @StartDate DATE = '2023-11-01';
+DECLARE @EndDate DATE = '2023-11-30';
+
+EXEC GetTopSellingFoodsByDate @StartDate, @EndDate;
+
+GO
+
+CREATE PROC USP_GroupTable
+@idTable1 INT, @idTable2 int
+AS BEGIN
+
+	DECLARE @idFirstBill int
+	DECLARE @idSeconrdBill INT
+	
+	DECLARE @isFirstTablEmty INT = 1
+	DECLARE @isSecondTablEmty INT = 1
+	
+	
+	SELECT @idSeconrdBill = id FROM dbo.Bill WHERE idTable = @idTable2 AND status = 0
+	SELECT @idFirstBill = id FROM dbo.Bill WHERE idTable = @idTable1 AND status = 0
+	
+	PRINT @idFirstBill
+	PRINT @idSeconrdBill
+	PRINT '-----------'
+	
+	IF (@idFirstBill IS NULL)
+	BEGIN
+		PRINT '0000001'
+		INSERT dbo.Bill
+		        ( DateCheckIn ,
+		          DateCheckOut ,
+		          idTable ,
+		          status
+		        )
+		VALUES  ( GETDATE() , -- DateCheckIn - date
+		          NULL , -- DateCheckOut - date
+		          @idTable1 , -- idTable - int
+		          0  -- status - int
+		        )
+		        
+		SELECT @idFirstBill = MAX(id) FROM dbo.Bill WHERE idTable = @idTable1 AND status = 0
+		
+	END
+	
+	SELECT @isFirstTablEmty = COUNT(*) FROM dbo.BillInfor WHERE idBill = @idFirstBill
+	
+	PRINT @idFirstBill
+	PRINT @idSeconrdBill
+	PRINT '-----------'
+	
+	IF (@idSeconrdBill IS NULL)
+	BEGIN
+		PRINT '0000002'
+		INSERT dbo.Bill
+		        ( DateCheckIn ,
+		          DateCheckOut ,
+		          idTable ,
+		          status
+		        )
+		VALUES  ( GETDATE() , -- DateCheckIn - date
+		          NULL , -- DateCheckOut - date
+		          @idTable2 , -- idTable - int
+		          0  -- status - int
+		        )
+		SELECT @idSeconrdBill = MAX(id) FROM dbo.Bill WHERE idTable = @idTable2 AND status = 0
+		
+	END
+	
+	SELECT @isSecondTablEmty = COUNT(*) FROM dbo.BillInfor WHERE idBill = @idSeconrdBill
+	
+	PRINT @idFirstBill
+	PRINT @idSeconrdBill
+	PRINT '-----------'
+
+	SELECT id INTO IDBillInfoTable FROM dbo.BillInfor WHERE idBill = @idSeconrdBill
+
+	UPDATE dbo.BillInfor SET idBill = @idSeconrdBill WHERE idBill = @idFirstBill
+
+	DELETE FROM dbo.BillInfor WHERE idBill = @idTable2;
+	
+	UPDATE dbo.TableFood SET status = N'Trống' WHERE id = @idTable1
+	
+	DROP TABLE IDBillInfoTable
+	
+	IF (@isFirstTablEmty = 0)
+		UPDATE dbo.TableFood SET status = N'Trống' WHERE id = @idTable2
+		
+	IF (@isSecondTablEmty= 0)
+		UPDATE dbo.TableFood SET status = N'Trống' WHERE id = @idTable1
+END
+GO

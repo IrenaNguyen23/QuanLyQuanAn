@@ -85,9 +85,10 @@
             // 
             // txtPassword
             // 
+            this.txtPassword.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtPassword.Location = new System.Drawing.Point(163, 34);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(346, 20);
+            this.txtPassword.Size = new System.Drawing.Size(346, 22);
             this.txtPassword.TabIndex = 1;
             this.txtPassword.Text = "1";
             this.txtPassword.UseSystemPasswordChar = true;
@@ -113,6 +114,7 @@
             // 
             // txtUsername
             // 
+            this.txtUsername.Font = new System.Drawing.Font("Arial", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtUsername.Location = new System.Drawing.Point(163, 28);
             this.txtUsername.Multiline = true;
             this.txtUsername.Name = "txtUsername";

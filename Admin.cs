@@ -43,6 +43,8 @@ namespace QuanLyCafe
             dtgvCategory.DataSource = categoryList;
             dtgvTable.DataSource = tableList;
 
+            LoadDateTimePickerFoodBestSeller();
+            LoadListFoodBestSeller(dtpkStarDate.Value, dtpkEndDate.Value);
             LoadDateTimePickerBill();
             LoadListBillByDate(dtpkFromDate.Value, dtpkToDate.Value);
             LoadListFood();
@@ -65,6 +67,18 @@ namespace QuanLyCafe
             dtpkFromDate.Value = new DateTime(today.Year,today.Month,1);
             dtpkToDate.Value = dtpkFromDate.Value.AddMonths(1).AddDays(-1);
         }
+        void LoadDateTimePickerFoodBestSeller()
+        {
+            DateTime today = DateTime.Now;
+            dtpkStarDate.Value = new DateTime(today.Year, today.Month, 1);
+            dtpkEndDate.Value = dtpkFromDate.Value.AddMonths(1).AddDays(-1);
+        }
+
+        void LoadListFoodBestSeller(DateTime checkIn, DateTime checkOut)
+        {
+            dtgvTopFoodBestSeller.DataSource = BillDAO.Instance.GetTopSellingFoodsByDate(checkIn, checkOut);
+        }
+
         void LoadListFood()
         {
             foodList.DataSource = FoodDAO.Instance.GetListFood();
@@ -609,5 +623,16 @@ namespace QuanLyCafe
         }
 
         #endregion
+
+        private void btnShowTopBestSeller_Click(object sender, EventArgs e)
+        {
+            LoadListFoodBestSeller(dtpkStarDate.Value,dtpkEndDate.Value);
+        }
+
+        private void btnExportBestSeller_Click(object sender, EventArgs e)
+        {
+            ExcelExporter exporter = new ExcelExporter();
+            exporter.ExportToExcel(dtgvTopFoodBestSeller);
+        }
     }
 }

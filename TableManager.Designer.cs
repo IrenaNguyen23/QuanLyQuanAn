@@ -55,6 +55,8 @@
             this.cbFood = new System.Windows.Forms.ComboBox();
             this.cbCategory = new System.Windows.Forms.ComboBox();
             this.flpTable = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnGroupTable = new System.Windows.Forms.Button();
+            this.cbGroupTable = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -174,6 +176,8 @@
             // 
             // panel3
             // 
+            this.panel3.Controls.Add(this.cbGroupTable);
+            this.panel3.Controls.Add(this.btnGroupTable);
             this.panel3.Controls.Add(this.txtTotalPrice);
             this.panel3.Controls.Add(this.cbSwtich);
             this.panel3.Controls.Add(this.btnSwitchTable);
@@ -189,7 +193,7 @@
             // 
             this.txtTotalPrice.Font = new System.Drawing.Font("Arial", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(163)));
             this.txtTotalPrice.ForeColor = System.Drawing.Color.Red;
-            this.txtTotalPrice.Location = new System.Drawing.Point(184, 43);
+            this.txtTotalPrice.Location = new System.Drawing.Point(265, 3);
             this.txtTotalPrice.Multiline = true;
             this.txtTotalPrice.Name = "txtTotalPrice";
             this.txtTotalPrice.ReadOnly = true;
@@ -219,7 +223,7 @@
             // 
             // nmDiscount
             // 
-            this.nmDiscount.Location = new System.Drawing.Point(94, 48);
+            this.nmDiscount.Location = new System.Drawing.Point(85, 48);
             this.nmDiscount.Name = "nmDiscount";
             this.nmDiscount.Size = new System.Drawing.Size(84, 20);
             this.nmDiscount.TabIndex = 5;
@@ -228,7 +232,7 @@
             // btnDisCount
             // 
             this.btnDisCount.BackColor = System.Drawing.SystemColors.Control;
-            this.btnDisCount.Location = new System.Drawing.Point(94, 3);
+            this.btnDisCount.Location = new System.Drawing.Point(85, 3);
             this.btnDisCount.Name = "btnDisCount";
             this.btnDisCount.Size = new System.Drawing.Size(84, 29);
             this.btnDisCount.TabIndex = 4;
@@ -238,9 +242,9 @@
             // btnCheckOut
             // 
             this.btnCheckOut.BackColor = System.Drawing.SystemColors.Control;
-            this.btnCheckOut.Location = new System.Drawing.Point(279, 3);
+            this.btnCheckOut.Location = new System.Drawing.Point(279, 39);
             this.btnCheckOut.Name = "btnCheckOut";
-            this.btnCheckOut.Size = new System.Drawing.Size(75, 66);
+            this.btnCheckOut.Size = new System.Drawing.Size(75, 30);
             this.btnCheckOut.TabIndex = 3;
             this.btnCheckOut.Text = "Thanh toán";
             this.btnCheckOut.UseVisualStyleBackColor = false;
@@ -310,6 +314,25 @@
             this.flpTable.Size = new System.Drawing.Size(462, 428);
             this.flpTable.TabIndex = 5;
             // 
+            // btnGroupTable
+            // 
+            this.btnGroupTable.BackColor = System.Drawing.SystemColors.Control;
+            this.btnGroupTable.Location = new System.Drawing.Point(175, 3);
+            this.btnGroupTable.Name = "btnGroupTable";
+            this.btnGroupTable.Size = new System.Drawing.Size(84, 29);
+            this.btnGroupTable.TabIndex = 8;
+            this.btnGroupTable.Text = "Gộp bàn";
+            this.btnGroupTable.UseVisualStyleBackColor = false;
+            this.btnGroupTable.Click += new System.EventHandler(this.btnGroupTable_Click);
+            // 
+            // cbGroupTable
+            // 
+            this.cbGroupTable.FormattingEnabled = true;
+            this.cbGroupTable.Location = new System.Drawing.Point(175, 48);
+            this.cbGroupTable.Name = "cbGroupTable";
+            this.cbGroupTable.Size = new System.Drawing.Size(83, 21);
+            this.cbGroupTable.TabIndex = 9;
+            // 
             // TableManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -365,5 +388,7 @@
         private System.Windows.Forms.ToolStripMenuItem thanhToánToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem thêmMónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem thanhToánToolStripMenuItem1;
+        private System.Windows.Forms.Button btnGroupTable;
+        private System.Windows.Forms.ComboBox cbGroupTable;
     }
 }

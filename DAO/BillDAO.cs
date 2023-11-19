@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -66,6 +67,11 @@ namespace QuanLyCafe.DAO
         public int GetNumBillListByDate(DateTime checkIn, DateTime checkOut)
         {
             return (int)DataProvider.Instance.ExecuteScalar("exec USP_GetNumBillByDate @checkIn , @checkOut", new object[] { checkIn, checkOut });
+        }
+
+        public DataTable GetTopSellingFoodsByDate(DateTime checkIn, DateTime checkOut)
+        {
+            return DataProvider.Instance.ExecuteQuery("EXEC GetTopSellingFoodsByDate @StartDate , @EndDate", new object[] {checkIn,checkOut});
         }
 
 

@@ -109,6 +109,7 @@
             this.btnAddFood = new System.Windows.Forms.Button();
             this.tAdmin = new System.Windows.Forms.TabPage();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btnExport = new System.Windows.Forms.Button();
             this.btnViewBill = new System.Windows.Forms.Button();
             this.dtpkToDate = new System.Windows.Forms.DateTimePicker();
             this.dtpkFromDate = new System.Windows.Forms.DateTimePicker();
@@ -120,7 +121,14 @@
             this.btnFirstBillPage = new System.Windows.Forms.Button();
             this.dtgvBill = new System.Windows.Forms.DataGridView();
             this.tcAdmin = new System.Windows.Forms.TabControl();
-            this.btnExport = new System.Windows.Forms.Button();
+            this.tabTopFoodSell = new System.Windows.Forms.TabPage();
+            this.panel14 = new System.Windows.Forms.Panel();
+            this.btnExportBestSeller = new System.Windows.Forms.Button();
+            this.btnShowTopBestSeller = new System.Windows.Forms.Button();
+            this.dtpkEndDate = new System.Windows.Forms.DateTimePicker();
+            this.dtpkStarDate = new System.Windows.Forms.DateTimePicker();
+            this.panel15 = new System.Windows.Forms.Panel();
+            this.dtgvTopFoodBestSeller = new System.Windows.Forms.DataGridView();
             this.tAccout.SuspendLayout();
             this.panel13.SuspendLayout();
             this.panel26.SuspendLayout();
@@ -162,6 +170,10 @@
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvBill)).BeginInit();
             this.tcAdmin.SuspendLayout();
+            this.tabTopFoodSell.SuspendLayout();
+            this.panel14.SuspendLayout();
+            this.panel15.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvTopFoodBestSeller)).BeginInit();
             this.SuspendLayout();
             // 
             // tAccout
@@ -270,6 +282,7 @@
             this.txbUserName.Location = new System.Drawing.Point(120, 16);
             this.txbUserName.Multiline = true;
             this.txbUserName.Name = "txbUserName";
+            this.txbUserName.ReadOnly = true;
             this.txbUserName.Size = new System.Drawing.Size(232, 20);
             this.txbUserName.TabIndex = 1;
             // 
@@ -930,12 +943,13 @@
             // 
             // btnAddFood
             // 
+            this.btnAddFood.BackColor = System.Drawing.SystemColors.Menu;
             this.btnAddFood.Location = new System.Drawing.Point(3, 4);
             this.btnAddFood.Name = "btnAddFood";
             this.btnAddFood.Size = new System.Drawing.Size(75, 48);
             this.btnAddFood.TabIndex = 0;
             this.btnAddFood.Text = "Thêm";
-            this.btnAddFood.UseVisualStyleBackColor = true;
+            this.btnAddFood.UseVisualStyleBackColor = false;
             this.btnAddFood.Click += new System.EventHandler(this.btnAddFood_Click);
             // 
             // tAdmin
@@ -960,6 +974,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(753, 30);
             this.panel2.TabIndex = 1;
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(408, 3);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(75, 23);
+            this.btnExport.TabIndex = 1;
+            this.btnExport.Text = "Xuất Excel";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
             // btnViewBill
             // 
@@ -1068,21 +1092,89 @@
             this.tcAdmin.Controls.Add(this.tFoodCategory);
             this.tcAdmin.Controls.Add(this.tTable);
             this.tcAdmin.Controls.Add(this.tAccout);
+            this.tcAdmin.Controls.Add(this.tabTopFoodSell);
             this.tcAdmin.Location = new System.Drawing.Point(12, 12);
             this.tcAdmin.Name = "tcAdmin";
             this.tcAdmin.SelectedIndex = 0;
             this.tcAdmin.Size = new System.Drawing.Size(776, 426);
             this.tcAdmin.TabIndex = 0;
             // 
-            // btnExport
+            // tabTopFoodSell
             // 
-            this.btnExport.Location = new System.Drawing.Point(408, 3);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new System.Drawing.Size(75, 23);
-            this.btnExport.TabIndex = 1;
-            this.btnExport.Text = "Xuất Excel";
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            this.tabTopFoodSell.Controls.Add(this.panel14);
+            this.tabTopFoodSell.Controls.Add(this.panel15);
+            this.tabTopFoodSell.Location = new System.Drawing.Point(4, 22);
+            this.tabTopFoodSell.Name = "tabTopFoodSell";
+            this.tabTopFoodSell.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTopFoodSell.Size = new System.Drawing.Size(768, 400);
+            this.tabTopFoodSell.TabIndex = 5;
+            this.tabTopFoodSell.Text = "Best Seller";
+            this.tabTopFoodSell.UseVisualStyleBackColor = true;
+            // 
+            // panel14
+            // 
+            this.panel14.Controls.Add(this.btnExportBestSeller);
+            this.panel14.Controls.Add(this.btnShowTopBestSeller);
+            this.panel14.Controls.Add(this.dtpkEndDate);
+            this.panel14.Controls.Add(this.dtpkStarDate);
+            this.panel14.Location = new System.Drawing.Point(6, 6);
+            this.panel14.Name = "panel14";
+            this.panel14.Size = new System.Drawing.Size(753, 30);
+            this.panel14.TabIndex = 3;
+            // 
+            // btnExportBestSeller
+            // 
+            this.btnExportBestSeller.Location = new System.Drawing.Point(408, 3);
+            this.btnExportBestSeller.Name = "btnExportBestSeller";
+            this.btnExportBestSeller.Size = new System.Drawing.Size(75, 23);
+            this.btnExportBestSeller.TabIndex = 1;
+            this.btnExportBestSeller.Text = "Xuất Excel";
+            this.btnExportBestSeller.UseVisualStyleBackColor = true;
+            this.btnExportBestSeller.Click += new System.EventHandler(this.btnExportBestSeller_Click);
+            // 
+            // btnShowTopBestSeller
+            // 
+            this.btnShowTopBestSeller.Location = new System.Drawing.Point(291, 3);
+            this.btnShowTopBestSeller.Name = "btnShowTopBestSeller";
+            this.btnShowTopBestSeller.Size = new System.Drawing.Size(75, 23);
+            this.btnShowTopBestSeller.TabIndex = 2;
+            this.btnShowTopBestSeller.Text = "Thống kê";
+            this.btnShowTopBestSeller.UseVisualStyleBackColor = true;
+            this.btnShowTopBestSeller.Click += new System.EventHandler(this.btnShowTopBestSeller_Click);
+            // 
+            // dtpkEndDate
+            // 
+            this.dtpkEndDate.Location = new System.Drawing.Point(526, 7);
+            this.dtpkEndDate.Name = "dtpkEndDate";
+            this.dtpkEndDate.Size = new System.Drawing.Size(224, 20);
+            this.dtpkEndDate.TabIndex = 1;
+            // 
+            // dtpkStarDate
+            // 
+            this.dtpkStarDate.Location = new System.Drawing.Point(4, 4);
+            this.dtpkStarDate.Name = "dtpkStarDate";
+            this.dtpkStarDate.Size = new System.Drawing.Size(224, 20);
+            this.dtpkStarDate.TabIndex = 0;
+            // 
+            // panel15
+            // 
+            this.panel15.Controls.Add(this.dtgvTopFoodBestSeller);
+            this.panel15.Location = new System.Drawing.Point(6, 42);
+            this.panel15.Name = "panel15";
+            this.panel15.Size = new System.Drawing.Size(756, 352);
+            this.panel15.TabIndex = 2;
+            // 
+            // dtgvTopFoodBestSeller
+            // 
+            this.dtgvTopFoodBestSeller.AllowUserToAddRows = false;
+            this.dtgvTopFoodBestSeller.AllowUserToDeleteRows = false;
+            this.dtgvTopFoodBestSeller.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dtgvTopFoodBestSeller.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dtgvTopFoodBestSeller.Location = new System.Drawing.Point(4, 3);
+            this.dtgvTopFoodBestSeller.Name = "dtgvTopFoodBestSeller";
+            this.dtgvTopFoodBestSeller.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.dtgvTopFoodBestSeller.Size = new System.Drawing.Size(752, 349);
+            this.dtgvTopFoodBestSeller.TabIndex = 0;
             // 
             // Admin
             // 
@@ -1149,6 +1241,10 @@
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dtgvBill)).EndInit();
             this.tcAdmin.ResumeLayout(false);
+            this.tabTopFoodSell.ResumeLayout(false);
+            this.panel14.ResumeLayout(false);
+            this.panel15.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dtgvTopFoodBestSeller)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1248,5 +1344,13 @@
         private System.Windows.Forms.Button btnFirstBillPage;
         private System.Windows.Forms.TextBox txbNameCategory;
         private System.Windows.Forms.Button btnExport;
+        private System.Windows.Forms.TabPage tabTopFoodSell;
+        private System.Windows.Forms.Panel panel14;
+        private System.Windows.Forms.Button btnExportBestSeller;
+        private System.Windows.Forms.Button btnShowTopBestSeller;
+        private System.Windows.Forms.DateTimePicker dtpkEndDate;
+        private System.Windows.Forms.DateTimePicker dtpkStarDate;
+        private System.Windows.Forms.Panel panel15;
+        private System.Windows.Forms.DataGridView dtgvTopFoodBestSeller;
     }
 }

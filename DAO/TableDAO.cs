@@ -41,6 +41,11 @@ namespace QuanLyCafe.DAO
         {
             DataProvider.Instance.ExecuteQuery("USP_SwitchTable @idTable1 , @idTable2", new object[] { id1, id2 });
         }
+
+        public void MergeTable(int id1, int id2)
+        {
+            DataProvider.Instance.ExecuteQuery("USP_GroupTable @idTable1 , @idTable2", new object[] { id1, id2 });
+        }
         public bool InsertTable(string name)
         {
             string query = string.Format("INSERT TableFood ( name )VALUES  ( N'{0}')", name);
